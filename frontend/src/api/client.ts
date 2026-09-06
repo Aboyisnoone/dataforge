@@ -18,12 +18,12 @@ export const getInvestigations = async (params?: {
 };
 
 export const getInvestigation = async (id: string): Promise<Investigation> => {
-    const response = await api.get(\/investigations/\\);
+    const response = await api.get(`/investigations/${id}`);
     return response.data;
 };
 
 export const getInvestigationMemory = async (id: string): Promise<any[]> => {
-    const response = await api.get(\/investigations/\/memory\);
+    const response = await api.get(`/investigations/${id}/memory`);
     return response.data;
 };
 
@@ -31,17 +31,17 @@ export const updateInvestigation = async (id: string, update: {
     status: InvestigationStatus;
     resolution?: Resolution;
 }): Promise<Investigation> => {
-    const response = await api.patch(\/investigations/\\, update);
+    const response = await api.patch(`/investigations/${id}`, update);
     return response.data;
 };
 
 export const askCopilot = async (id: string, query: string, context?: any): Promise<any> => {
-    const response = await api.post(\/investigations/\/copilot\, { query, context });
+    const response = await api.post(`/investigations/${id}/copilot`, { query, context });
     return response.data;
 };
 
 export const createExperiment = async (invId: string, hypothesisId: string, sqlQuery: string): Promise<any> => {
-    const response = await api.post(\/investigations/\/hypotheses/\/experiments\, {
+    const response = await api.post(`/investigations/${invId}/hypotheses/${hypothesisId}/experiments`, {
         sql_query: sqlQuery,
         requested_by: "Engineer"
     });
@@ -49,6 +49,6 @@ export const createExperiment = async (invId: string, hypothesisId: string, sqlQ
 };
 
 export const runExperiment = async (invId: string, experimentId: string): Promise<any> => {
-    const response = await api.post(\/investigations/\/experiments/\/run\);
+    const response = await api.post(`/investigations/${invId}/experiments/${experimentId}/run`);
     return response.data;
 };

@@ -256,13 +256,13 @@ export const Workspace: React.FC = () => {
                                         <div 
                                             key={hyp.id}
                                             onClick={() => setSelectedHypothesis(hyp.id === selectedHypothesis ? null : hyp.id)}
-                                            className={\p-4 rounded-xl border transition-all \\}
+                                            className={`p-4 rounded-xl border transition-all ${hyp.id === selectedHypothesis ? 'border-blue-500 bg-blue-50/50' : 'border-gray-200 hover:border-blue-300'}`}
                                         >
                                             <div className="flex items-start justify-between">
                                                 <div className="flex-1 pr-6 cursor-pointer">
                                                     <div className="font-medium text-gray-900 mb-2">{hyp.description}</div>
                                                     <div className="flex items-center gap-3">
-                                                        <span className={\	ext-xs px-2 py-1 rounded font-bold tracking-wide uppercase \\}>
+                                                        <span className={`text-xs px-2 py-1 rounded font-bold tracking-wide uppercase ${hyp.status === 'SUPPORTED' ? 'bg-green-100 text-green-700' : hyp.status === 'REJECTED' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`}>
                                                             {hyp.status}
                                                         </span>
                                                         <span className="text-xs text-gray-500 font-medium">
@@ -270,7 +270,7 @@ export const Workspace: React.FC = () => {
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <ChevronRight className={\w-5 h-5 text-gray-400 transition-transform \\} />
+                                                <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform ${hyp.id === selectedHypothesis ? 'rotate-90' : ''}`} />
                                             </div>
 
                                             {selectedHypothesis === hyp.id && (
@@ -307,7 +307,7 @@ export const Workspace: React.FC = () => {
                                                                     </div>
                                                                     <div className="p-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
                                                                         <div className="flex items-center gap-3">
-                                                                            <span className={\	ext-xs px-2 py-1 rounded font-bold uppercase \\}>
+                                                                            <span className={`text-xs px-2 py-1 rounded font-bold uppercase ${exp.status === 'COMPLETED' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
                                                                                 {exp.status}
                                                                             </span>
                                                                             <span className="text-xs text-gray-500">

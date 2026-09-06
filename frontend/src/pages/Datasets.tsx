@@ -43,7 +43,7 @@ export const Datasets = () => {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             
-            setSuccess(Successfully uploaded version \ of dataset \);
+            setSuccess(`Successfully uploaded version ${res.data.version_number} of dataset ${res.data.dataset_id}`);
             loadDatasets();
         } catch (err: any) {
             console.error(err);
@@ -126,3 +126,4 @@ export const Datasets = () => {
         </div>
     );
 };
+

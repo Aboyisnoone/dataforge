@@ -37,6 +37,7 @@ export const CopilotPanel: React.FC<CopilotPanelProps> = ({ investigationId, con
             setLoading(false);
         }
     };
+    return (
         <div className="flex flex-col h-full bg-slate-50 border-l border-slate-200 w-96 shadow-xl shrink-0">
             <div className="p-4 bg-slate-800 text-white flex items-center gap-2">
                 <Lightbulb className="w-5 h-5 text-yellow-300" />

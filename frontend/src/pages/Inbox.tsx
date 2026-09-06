@@ -72,7 +72,7 @@ export const Inbox: React.FC = () => {
                     <button
                         key={tab.label}
                         onClick={() => setStatusFilter(tab.id)}
-                        className={pb-3 px-1 font-medium text-sm transition-colors border-b-2 \}
+                        className={`pb-3 px-1 font-medium text-sm transition-colors border-b-2 ${statusFilter === tab.id ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
                     >
                         {tab.label}
                     </button>
@@ -90,7 +90,7 @@ export const Inbox: React.FC = () => {
                 {data?.items?.map((inv: any) => (
                     <div 
                         key={inv.id} 
-                        onClick={() => navigate(/investigations/\)}
+                        onClick={() => navigate(`/investigations/${inv.id}`)}
                         className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-md hover:border-gray-300 cursor-pointer transition-all flex gap-4"
                     >
                         <div className="flex-shrink-0 flex justify-center">
@@ -120,7 +120,7 @@ export const Inbox: React.FC = () => {
                                         <CircleDashed className="w-4 h-4" />
                                         {inv.hypotheses?.length || 0} hypotheses &middot; {
                                             inv.strong_candidates_count === 0 ? 'No validated cause' : 
-                                            \ strong candidate\
+                                            `${inv.strong_candidates_count} strong candidate(s)`
                                         }
                                     </div>
                                 )}
