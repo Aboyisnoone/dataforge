@@ -141,7 +141,7 @@ export const Workspace: React.FC = () => {
                                     setSelectedFinding(finding);
                                     setSelectedHypothesis(null);
                                 }}
-                                className={\p-4 rounded-xl border cursor-pointer transition-all \\}
+                                className={`p-4 rounded-xl border cursor-pointer transition-all ${selectedFinding?.id === finding.id ? "border-blue-500 bg-blue-50/50" : "border-gray-200 hover:border-blue-300"}`}
                             >
                                 <div className="flex items-start gap-3">
                                     <div className="mt-1.5">{getSeverityIcon(finding.severity.value)}</div>
@@ -433,3 +433,4 @@ export const Workspace: React.FC = () => {
         </div>
     );
 };
+
