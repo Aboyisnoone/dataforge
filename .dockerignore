@@ -1,0 +1,13 @@
+node_modules
+frontend/node_modules
+.dataforge
+__pycache__
+*.pyc
+.env
+.venv
+venv
+ENV
+.git
+.pytest_cache
+*.db
+*.sqlite3

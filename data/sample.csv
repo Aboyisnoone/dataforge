@@ -1,0 +1,7 @@
+customer_id,revenue,country
+1,10.0,US
+2,,US
+3,30.0,UK
+3,40.0,UK
+4,,FR
+5,60.0,FR

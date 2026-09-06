@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+*.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# DataForge local storage
+.dataforge/
+dataforge.db
+*.db
+*.sqlite3
+
+# Node
+node_modules/
+dist/
+.env.local

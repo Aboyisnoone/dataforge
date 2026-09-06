@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: dataforge
+      POSTGRES_PASSWORD: dataforge_password
+      POSTGRES_DB: dataforge
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: dataforge_minio
+      MINIO_ROOT_PASSWORD: dataforge_minio_password
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - miniodata:/data
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set myminio http://minio:9000 dataforge_minio dataforge_minio_password;
+      /usr/bin/mc mb myminio/dataforge || true;
+      /usr/bin/mc anonymous set public myminio/dataforge || true;
+      exit 0;
+      "
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=postgresql://dataforge:dataforge_password@postgres:5432/dataforge
+      - STORAGE_BACKEND=s3
+      - S3_ENDPOINT=http://minio:9000
+      - S3_ACCESS_KEY=dataforge_minio
+      - S3_SECRET_KEY=dataforge_minio_password
+      - S3_BUCKET=dataforge
+      - PYTHONPATH=/app
+    depends_on:
+      - postgres
+      - minio-init
+    command: uvicorn backend.api.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5180:5180"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  miniodata:
