@@ -52,7 +52,7 @@ services:
       - S3_SECRET_KEY=dataforge_minio_password
       - S3_BUCKET=dataforge
       - PYTHONPATH=/app
-      - GEMINI_API_KEY=
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
     depends_on:
       - postgres
       - minio-init
