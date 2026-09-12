@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+﻿from pydantic import BaseModel, Field
 from typing import Dict, Any, List
 from core.investigation.models import Investigation
 from core.investigation.synthesis import InvestigationSynthesis
@@ -87,7 +87,7 @@ class ContextBuilder:
                 for ev in h.validation_result.evidence:
                     evidence_catalog.append({
                         "id": ev.id,
-                        "attached_to": f"ValidationResult: {h.validation_result.id}",
+                        "attached_to": f"ValidationResult: {h.id}",
                         "type": ev.type.value,
                         "metric": ev.metric,
                         "description": ev.description
@@ -124,3 +124,4 @@ class ContextBuilder:
             attributions=attributions,
             historical_memories=hist_mem
         )
+
