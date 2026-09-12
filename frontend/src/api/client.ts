@@ -10,9 +10,10 @@ export const api = axios.create({
 export const getInvestigations = async (params?: {
     status?: string;
     severity?: string;
+    dataset_id?: string;
     search?: string;
-    skip?: number;
-    limit?: number;
+    page?: number;
+    page_size?: number;
 }): Promise<PaginatedInvestigations> => {
     const response = await api.get('/investigations', { params });
     return response.data;
@@ -23,28 +24,16 @@ export const getInvestigation = async (id: string): Promise<Investigation> => {
     return response.data;
 };
 
-export const getInvestigationMemory = async (id: string): Promise<Resolution[]> => {
+export const getInvestigationMemory = async (id: string): Promise<any[]> => {
     const response = await api.get(`/investigations/${id}/memory`);
     return response.data;
 };
 
-export const resolveInvestigation = async (id: string, resolution: any): Promise<any> => {
-    const response = await api.post(`/investigations/${id}/resolve`, resolution);
-    return response.data;
-};
-
-export const addHypothesis = async (id: string, hypothesis: any): Promise<any> => {
-    const response = await api.post(`/investigations/${id}/hypotheses`, hypothesis);
-    return response.data;
-};
-
-export const updateHypothesisStatus = async (id: string, hypothesisId: string, status: string): Promise<any> => {
-    const response = await api.patch(`/investigations/${id}/hypotheses/${hypothesisId}/status`, { status });
-    return response.data;
-};
-
-export const executeExperiment = async (id: string, experiment: any): Promise<any> => {
-    const response = await api.post(`/investigations/${id}/experiments`, experiment);
+export const updateInvestigation = async (id: string, update: {
+    status: InvestigationStatus;
+    resolution?: Resolution;
+}): Promise<Investigation> => {
+    const response = await api.patch(`/investigations/${id}`, update);
     return response.data;
 };
 
@@ -53,18 +42,15 @@ export const askCopilot = async (id: string, query: string, context?: any): Prom
     return response.data;
 };
 
-export const uploadDataset = async (file: File): Promise<any> => {
-    const formData = new FormData();
-    formData.append('file', file);
-    const response = await api.post('/datasets', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
+export const createExperiment = async (invId: string, hypothesisId: string, sqlQuery: string): Promise<any> => {
+    const response = await api.post(`/investigations/${invId}/hypotheses/${hypothesisId}/experiments`, {
+        sql_query: sqlQuery,
+        requested_by: "Engineer"
     });
     return response.data;
 };
 
-export const getDatasets = async (): Promise<any> => {
-    const response = await api.get('/datasets');
+export const runExperiment = async (invId: string, experimentId: string): Promise<any> => {
+    const response = await api.post(`/investigations/${invId}/experiments/${experimentId}/run`);
     return response.data;
 };

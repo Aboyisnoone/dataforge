@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { ChevronDown, ChevronRight, Database, Target, ShieldCheck, Info, Play, CheckCircle2, XCircle, Clock, Plus } from 'lucide-react';
-import type { Finding, Hypothesis, Evidence, Experiment } from '../types/api';
+﻿import React, { useState } from 'react';
+import { ChevronDown, ChevronRight, Database, Info, Play, CheckCircle2, XCircle, Clock, Plus } from 'lucide-react';
+import type { Finding, Hypothesis, Experiment } from '../types/api';
 import { api } from '../api/client';
 
 const TreeNode: React.FC<{

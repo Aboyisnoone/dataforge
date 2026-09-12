@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { askCopilot } from '../api/client';
 import { Send, Loader2, Lightbulb, Database, Quote } from 'lucide-react';
 
@@ -7,7 +7,7 @@ interface CopilotPanelProps {
     context?: any;
 }
 
-export const CopilotPanel: React.FC<CopilotPanelProps> = ({ investigationId, context }) => {
+export const CopilotPanel: React.FC<CopilotPanelProps> = ({ investigationId }) => {
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(false);
     const [history, setHistory] = useState<any[]>([]);
@@ -100,7 +100,7 @@ export const CopilotPanel: React.FC<CopilotPanelProps> = ({ investigationId, con
                                                     <div key={j} className="bg-slate-900 rounded overflow-hidden">
                                                         <div className="bg-blue-900 text-blue-100 text-xs px-2 py-1 font-semibold tracking-wider flex justify-between">
                                                             <span>SQL</span>
-                                                            <span className="text-yellow-300 uppercase">Draft — Requires Review</span>
+                                                            <span className="text-yellow-300 uppercase">Draft â€” Requires Review</span>
                                                         </div>
                                                         <pre className="p-3 text-emerald-400 text-xs overflow-x-auto font-mono">
                                                             {exp.sql_draft}
@@ -165,3 +165,4 @@ export const CopilotPanel: React.FC<CopilotPanelProps> = ({ investigationId, con
         </div>
     );
 };
+
