@@ -1,4 +1,4 @@
-import re
+﻿import re
 from backend.copilot.models import CopilotResponse
 from backend.copilot.context import CopilotContext
 
@@ -71,13 +71,13 @@ class CopilotValidator:
         # This is basic, but fulfills the "reject invented column/metric" requirement.
         
         # Check columns
-        col_matches = re.findall(r'column\s+[\'"]?([a-z0-9_]+)[\'"]?', full_text)
+        col_matches = re.findall(r'column\s+['"']([a-z0-9_]+)['"']', full_text)
         for col in col_matches:
             if col not in valid_columns:
                 raise ValueError(f"Copilot invented column: '{col}' is not in the dataset schema.")
                 
         # Check metrics
-        metric_matches = re.findall(r'metric\s+[\'"]?([a-z0-9_]+)[\'"]?', full_text)
+        metric_matches = re.findall(r'metric\s+['"']([a-z0-9_]+)['"']', full_text)
         for metric in metric_matches:
             if metric not in CopilotValidator.KNOWN_METRICS:
                 raise ValueError(f"Copilot invented metric: '{metric}' is not recognized.")
@@ -100,4 +100,5 @@ class CopilotValidator:
             has_supported = any(h["status"] == "SUPPORTED" for h in context.active_hypotheses)
             if not has_supported and "hypothesis" in full_text:
                 raise ValueError("Copilot claimed a hypothesis is confirmed, but it lacks SUPPORTED validation.")
+
 

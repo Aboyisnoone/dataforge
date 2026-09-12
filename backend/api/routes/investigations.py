@@ -1,4 +1,4 @@
-from backend.api.auth import get_current_workspace
+﻿from backend.api.auth import get_current_workspace
 from typing import List, Optional
 from datetime import datetime
 from pydantic import BaseModel
@@ -346,7 +346,7 @@ def ask_copilot(id: str, req: CopilotRequest, workspace_id: str = Depends(get_cu
         import traceback
         traceback.print_exc()
         # We never expose full stack traces from the AI orchestration
-        raise HTTPException(status_code=500, detail="Copilot failed to generate a response.")
+        raise HTTPException(status_code=500, detail=f"Copilot crashed: {str(e)}")
 
 
 class ExperimentCreateRequest(BaseModel):
