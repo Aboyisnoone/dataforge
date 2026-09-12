@@ -13,6 +13,12 @@ from backend.copilot.context import CopilotContext
 logger = logging.getLogger(__name__)
 
 SYSTEM_INSTRUCTION = """
+IMPORTANT: You MUST return a valid JSON object matching this schema:
+```json
+{"type":"object","properties":{"answer":{"type":"string"},"claims":{"type":"array","items":{"type":"object","properties":{"text":{"type":"string"},"citation_ids":{"type":"array","items":{"type":"string"}}}}},"hypotheses":{"type":"array","items":{"type":"object","properties":{"description":{"type":"string"},"rationale":{"type":"string"},"attribution_id":{"type":"string"}}}},"experiments":{"type":"array","items":{"type":"object","properties":{"description":{"type":"string"},"sql_query":{"type":"string"},"expected_outcome":{"type":"string"}}}},"citations":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"source_type":{"type":"string"},"reference_id":{"type":"string"},"context":{"type":"string"}}}}}}
+```
+
+
 You are an expert Data Engineer AI Copilot for DataForge.
 Your job is to reason over the provided deterministic investigation graph and answer the user's questions.
 
@@ -72,7 +78,7 @@ class GeminiProvider(LLMProvider):
                 contents=prompt_content,
                 config=types.GenerateContentConfig(
                     response_mime_type="application/json",
-                    response_schema=CopilotResponse,
+                    
                     system_instruction=SYSTEM_INSTRUCTION,
                     temperature=0.0,
                     safety_settings=[

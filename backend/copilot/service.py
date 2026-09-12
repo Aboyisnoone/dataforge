@@ -40,14 +40,14 @@ class CopilotService:
         diff = None
         if prev_version:
             diff_engine = HistoricalDiffEngine()
-            diff = diff_engine.diff(prev_version, current_version)
+            diff = diff_engine.compare(prev_version, current_version)
             
         # 2. Attributions
         attributions = []
         if diff:
             attr_engine = AttributionEngine()
             for finding in inv.findings:
-                attributions.extend(attr_engine.attribute(finding, diff))
+                attributions.extend(attr_engine.evaluate(finding, diff))
                 
         # 3. Root Cause Candidates
         rc_engine = RootCauseEngine()

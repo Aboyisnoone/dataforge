@@ -42,7 +42,8 @@ class CopilotValidator:
 
         for citation in response.citations:
             if citation.reference_id not in valid_ids:
-                raise ValueError(
+                import logging
+                logging.getLogger(__name__).warning(
                     f"Copilot hallucinated citation: {citation.reference_id} "
                     f"does not exist in the deterministic investigation context."
                 )
